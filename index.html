@@ -1,0 +1,18 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+            (async () => {
+                const fetchPromise = await fetch('./a.out.wasm');
+                const buffer = await fetchPromise.arrayBuffer();
+                /* instantiateStreaming is faster and doesn't require the arrayBuffer-step, but since
+                this is just a demo, and the python server I'm using doesn't handle MIME-types properly,
+                I'll have to settle with instantiate */
+                const { instance } = await WebAssembly.instantiate(buffer);
+                const result = instance.exports.fibonacci(42);
+                document.querySelector('main').textContent = `The 42nd Fibonacci number is ${ result }.`;
+            })();
+        </script>
+    </body>
+</html>

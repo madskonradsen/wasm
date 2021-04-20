@@ -1,0 +1,1 @@
+emcc ./fibonacci.c -s WASM=1
